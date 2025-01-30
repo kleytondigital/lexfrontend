@@ -21,7 +21,7 @@ COPY --from=build /app/dist ./dist
 COPY --from=build /app/package*.json ./
 
 # Instala apenas as dependências necessárias para rodar o preview
-RUN npm install --omit=dev
+RUN npm install
 
 # Define as variáveis de ambiente do Vite
 ENV VITE_API_URL=http://lex.aoseudispor.com.br:5000/api
