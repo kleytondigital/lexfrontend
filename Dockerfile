@@ -19,7 +19,7 @@ FROM nginx:alpine
 
 # Remove arquivos default do Nginx e copia o build da aplicação
 RUN rm -rf /usr/share/nginx/html/*
-COPY --from=builder /app/dist /usr/share/nginx/html
+COPY --from=0 /app/dist /usr/share/nginx/html
 
 # Copia a configuração do Nginx
 COPY nginx.conf /etc/nginx/nginx.conf
