@@ -8,6 +8,9 @@ export default defineConfig({
     server: {
         port: 3001,
         host: '0.0.0.0',
+        preview: {
+            allowedHosts: ['lex.aoseudispor.com.br', 'localhost', '185.208.206.76']
+        },
         proxy: {
             '/api': {
                 target: 'http://localhost:5000',
