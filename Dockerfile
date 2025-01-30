@@ -22,7 +22,8 @@ RUN rm -rf /usr/share/nginx/html/*
 COPY --from=0 /app/dist /usr/share/nginx/html
 
 # Copia a configuração do Nginx
-COPY nginx.conf /etc/nginx/nginx.conf
+# Copia a configuração do Nginx para o diretório correto
+COPY ./nginx.conf /etc/nginx/conf.d/default.conf  
 
 EXPOSE 3001
 
