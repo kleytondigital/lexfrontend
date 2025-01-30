@@ -11,9 +11,9 @@ import { FaInfoCircle, FaLink, FaCopy, FaExternalLinkAlt, FaAddressCard, FaWhats
 
 // Adicionar constante para URL base
 const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
-const SITE_URL = import.meta.env.VITE_SITE_URL || 'http://localhost:3000';
-const CLIENT_URL = import.meta.env.VITE_SITE_CLIENTE_URL || 'http://localhost:3000/p';
-const CONSULTANT_URL = import.meta.env.VITE_SITE_CONSULTANT_URL || 'http://localhost:3000/c';
+const SITE_URL = import.meta.env.VITE_SITE_URL || 'http://localhost:3001';
+const CLIENT_URL = import.meta.env.VITE_SITE_CLIENTE_URL || 'http://localhost:3001/p';
+const CONSULTANT_URL = import.meta.env.VITE_SITE_CONSULTANT_URL || 'http://localhost:3001/c';
 
 // Estado inicial seguro
 const initialState = {
@@ -338,8 +338,8 @@ const LandingPageConfig = () => {
 
     const getPageUrl = () => {
         // Extrair os paths das variáveis de ambiente
-        const clientPath = import.meta.env.VITE_SITE_CLIENTE_URL || 'http://localhost:3000/p';
-        const consultantPath = import.meta.env.VITE_SITE_CONSULTANT_URL || 'http://localhost:3000/c';
+        const clientPath = import.meta.env.VITE_SITE_CLIENTE_URL || 'http://localhost:3001/p';
+        const consultantPath = import.meta.env.VITE_SITE_CONSULTANT_URL || 'http://localhost:3001/c';
         
         // Usar o path correto baseado no objetivo da landing page
         const baseUrl = formData.objective === 'client' ? clientPath : consultantPath;
