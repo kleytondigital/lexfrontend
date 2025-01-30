@@ -1,30 +1,35 @@
-FROM node:18-alpine
+# Etapa 1: Construção do projeto
+FROM node:23-alpine AS build
 
 WORKDIR /app
 
+# Copia apenas os arquivos essenciais para instalar dependências
 COPY package*.json ./
-
 RUN npm install --frozen-lockfile
 
+# Copia o restante dos arquivos e faz o build
 COPY . .
+RUN npm run build
 
+# Etapa 2: Servindo com Vite Preview
+FROM node:23-alpine AS runner
+
+WORKDIR /app
+
+# Copia apenas os arquivos de build para o container final
+COPY --from=build /app/dist ./dist
+COPY --from=build /app/package*.json ./
+
+# Instala apenas as dependências necessárias para rodar o preview
+RUN npm install --omit=dev
+
+# Define as variáveis de ambiente do Vite
 ENV VITE_API_URL=http://lex.aoseudispor.com.br:5000/api
 ENV VITE_SITE_URL=http://lex.aoseudispor.com.br:3001
 ENV VITE_SITE_CLIENTE_URL=http://lex.aoseudispor.com.br:3001/p
 ENV VITE_SITE_CONSULTANT_URL=http://lex.aoseudispor.com.br:3001/c
 
-RUN npm run build
-
-FROM nginx:alpine
-
-# Remove arquivos default do Nginx e copia o build da aplicação
-RUN rm -rf /usr/share/nginx/html/*
-COPY --from=0 /app/dist /usr/share/nginx/html
-
-# Copia a configuração do Nginx
-# Copia a configuração do Nginx para o diretório correto
-COPY ./nginx.conf /etc/nginx/conf.d/default.conf  
-
 EXPOSE 3001
 
-CMD ["nginx", "-g", "daemon off;"] 
+# Comando para rodar o Vite Preview
+CMD ["npm", "run", "preview", "--", "--port", "3001", "--host", "0.0.0.0"]
