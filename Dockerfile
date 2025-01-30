@@ -32,4 +32,4 @@ ENV VITE_SITE_CONSULTANT_URL=http://lex.aoseudispor.com.br:3001/c
 EXPOSE 3001
 
 # Comando para rodar o Vite Preview
-CMD ["npm", "run", "preview", "--", "--port", "3001", "--host", "0.0.0.0"]
+CMD ["npm", "run", "preview", "--", "--host", "--force"]
