@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm install
+RUN npm install --frozen-lockfile
 
 COPY . .
 
@@ -15,6 +15,15 @@ ENV VITE_SITE_CONSULTANT_URL=http://lex.aoseudispor.com.br:3001/c
 
 RUN npm run build
 
+FROM nginx:alpine
+
+# Remove arquivos default do Nginx e copia o build da aplicação
+RUN rm -rf /usr/share/nginx/html/*
+COPY --from=builder /app/dist /usr/share/nginx/html
+
+# Copia a configuração do Nginx
+COPY nginx.conf /etc/nginx/nginx.conf
+
 EXPOSE 3001
 
-CMD ["npm", "run", "preview", "--", "--port", "3001", "--host", "0.0.0.0"] 
+CMD ["nginx", "-g", "daemon off;"] 
