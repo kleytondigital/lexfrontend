@@ -22,7 +22,7 @@ const LandingPage = () => {
                     digitalName,
                     isClientTemplate,
                     pathname: location.pathname,
-                    baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5000/api'
+                    baseURL: import.meta.env.VITE_API_URL || 'http://lex.aoseudispor.com.br:5000/api'
                 });
 
                 const path = `/${isClientTemplate ? 'p' : 'c'}/${digitalName}`;
