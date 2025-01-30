@@ -14,12 +14,4 @@ export default defineConfig({
             },
         },
     },
-    preview: {
-        allowedHosts: [
-            'lex.aoseudispor.com.br',
-            'localhost',
-            '185.208.206.76',
-            '0.0.0.0',
-        ],
-    },
 });
